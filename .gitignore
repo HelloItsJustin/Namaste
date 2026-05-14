@@ -1,0 +1,32 @@
+# Ignore Python cache and compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Ignore Python virtual environments
+venv/
+.env/
+.venv/
+ENV/
+env/
+
+# Ignore local database files and instance storage
+/backend/instance/
+*.db
+*.sqlite3
+
+# Ignore logs and local environment files
+*.log
+.env
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore root package lock created outside project context
+/package-lock.json
+
+# Ignore node_modules directories
+node_modules/
+frontend/node_modules/
