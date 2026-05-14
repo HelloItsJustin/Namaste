@@ -1,0 +1,8 @@
+{
+  "name": "Jlyn* Star Cipher Specification",
+  "version": "1.0.2",
+  "alphabet": "\t\n\r !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~",
+  "key_size_bytes": 32,
+  "prng": "mulberry32",
+  "shuffle": "Fisher-Yates"
+}
