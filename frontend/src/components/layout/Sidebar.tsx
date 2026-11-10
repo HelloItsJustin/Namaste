@@ -6,7 +6,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, Award, Shield, Wallet, Users,
-  Settings, ChevronRight, LogOut, X, Database, Activity
+  Settings, ChevronRight, LogOut, X, Database, Activity,
+  TrendingUp, MessageCircle, ShieldAlert
 } from 'lucide-react';
 import { useUIStore } from '@/store/useStore';
 import { useWorkerStore } from '@/store/useStore';
@@ -14,12 +15,14 @@ import { truncateHash } from '@/lib/jlynCipher';
 import { MOCK_WORKER } from '@/lib/mockData';
 
 const NAV_ITEMS = [
-  { path: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-  { path: '/credentials', icon: Award, label: 'Credentials' },
-  { path: '/zkproof', icon: Shield, label: 'ZK Proof' },
-  { path: '/wallet', icon: Wallet, label: 'Wallet' },
-  { path: '/vouching', icon: Users, label: 'Vouching' },
-  { path: '/settings', icon: Settings, label: 'Settings' },
+  { path: '/dashboard',   icon: LayoutDashboard, label: 'Dashboard' },
+  { path: '/credentials', icon: Award,           label: 'Credentials' },
+  { path: '/zkproof',     icon: Shield,          label: 'ZK Proof' },
+  { path: '/wallet',      icon: Wallet,          label: 'Wallet' },
+  { path: '/vouching',    icon: Users,           label: 'Vouching' },
+  { path: '/uplift',      icon: TrendingUp,      label: 'Uplift Plan' },
+  { path: '/chat',        icon: MessageCircle,   label: 'AI Assistant' },
+  { path: '/settings',    icon: Settings,        label: 'Settings' },
 ];
 
 export default function Sidebar() {
@@ -89,7 +92,7 @@ export default function Sidebar() {
 
         {/* Identity Card */}
         <div style={{ padding: '20px' }}>
-          <motion.div 
+          <motion.div
             style={{ background: 'rgba(108,99,255,0.06)', border: '1px solid rgba(108,99,255,0.15)', borderRadius: 12, padding: 12, cursor: 'pointer' }}
             whileHover={{ borderColor: 'rgba(108,99,255,0.35)', boxShadow: '0 0 12px rgba(108,99,255,0.2)' }}
             transition={{ duration: 0.2 }}
@@ -115,8 +118,8 @@ export default function Sidebar() {
           <div className="flex flex-col gap-1">
             {NAV_ITEMS.map((item) => (
               <motion.div key={item.path} whileHover={{ x: 4 }} whileTap={{ scale: 0.96 }}>
-                <Link 
-                  to={item.path} 
+                <Link
+                  to={item.path}
                   className={`nav-item ${isActive(item.path) ? 'active' : ''}`}
                   style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 12, padding: '11px 14px', borderRadius: 8, transition: 'all 0.2s', color: isActive(item.path) ? 'var(--accent-secondary)' : 'var(--text-secondary)', background: isActive(item.path) ? 'rgba(108,99,255,0.12)' : 'transparent', border: isActive(item.path) ? '1px solid rgba(108,99,255,0.25)' : '1px solid transparent' }}
                   onClick={() => window.innerWidth < 1024 && setSidebarOpen(false)}
@@ -131,18 +134,31 @@ export default function Sidebar() {
 
           <div style={{ marginTop: 24 }}>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.6rem', letterSpacing: '0.1em', padding: '0 8px', marginBottom: 8 }}>SYSTEM</p>
+
+            {/* Lender Portal */}
             <motion.div whileHover={{ x: 4 }} whileTap={{ scale: 0.96 }}>
-              <Link to="/lender/dashboard" className={`${pathname.startsWith('/lender') ? 'active' : ''}`} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 12, padding: '11px 14px', borderRadius: 8, transition: 'all 0.2s', color: pathname.startsWith('/lender') ? 'var(--accent-secondary)' : 'var(--text-secondary)', background: pathname.startsWith('/lender') ? 'rgba(108,99,255,0.12)' : 'transparent', border: pathname.startsWith('/lender') ? '1px solid rgba(108,99,255,0.25)' : '1px solid transparent' }}>
+              <Link to="/lender/dashboard" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 12, padding: '11px 14px', borderRadius: 8, transition: 'all 0.2s', color: pathname.startsWith('/lender') ? 'var(--accent-secondary)' : 'var(--text-secondary)', background: pathname.startsWith('/lender') ? 'rgba(108,99,255,0.12)' : 'transparent', border: pathname.startsWith('/lender') ? '1px solid rgba(108,99,255,0.25)' : '1px solid transparent' }}>
                 <Shield size={18} />
                 <span style={{ fontSize: '0.85rem', fontWeight: 500 }}>Lender Portal</span>
                 {pathname.startsWith('/lender') && <ChevronRight size={14} style={{ marginLeft: 'auto' }} />}
               </Link>
             </motion.div>
+
+            {/* Admin Panel */}
             <motion.div whileHover={{ x: 4 }} whileTap={{ scale: 0.96 }}>
-              <Link to="/admin/workers" className={`${pathname.startsWith('/admin') ? 'active' : ''}`} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 12, padding: '11px 14px', borderRadius: 8, transition: 'all 0.2s', color: pathname.startsWith('/admin') ? 'var(--accent-secondary)' : 'var(--text-secondary)', background: pathname.startsWith('/admin') ? 'rgba(108,99,255,0.12)' : 'transparent', border: pathname.startsWith('/admin') ? '1px solid rgba(108,99,255,0.25)' : '1px solid transparent' }}>
+              <Link to="/admin/workers" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 12, padding: '11px 14px', borderRadius: 8, transition: 'all 0.2s', color: pathname.startsWith('/admin') ? 'var(--accent-secondary)' : 'var(--text-secondary)', background: pathname.startsWith('/admin') ? 'rgba(108,99,255,0.12)' : 'transparent', border: pathname.startsWith('/admin') ? '1px solid rgba(108,99,255,0.25)' : '1px solid transparent' }}>
                 <Database size={18} />
                 <span style={{ fontSize: '0.85rem', fontWeight: 500 }}>Admin Panel</span>
                 {pathname.startsWith('/admin') && <ChevronRight size={14} style={{ marginLeft: 'auto' }} />}
+              </Link>
+            </motion.div>
+
+            {/* Anomaly Detector — direct link with red badge */}
+            <motion.div whileHover={{ x: 4 }} whileTap={{ scale: 0.96 }}>
+              <Link to="/admin/anomaly" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 12, padding: '11px 14px', borderRadius: 8, transition: 'all 0.2s', color: pathname === '/admin/anomaly' ? '#FF4D6A' : 'var(--text-secondary)', background: pathname === '/admin/anomaly' ? 'rgba(255,77,106,0.1)' : 'transparent', border: pathname === '/admin/anomaly' ? '1px solid rgba(255,77,106,0.25)' : '1px solid transparent' }}>
+                <ShieldAlert size={18} />
+                <span style={{ fontSize: '0.85rem', fontWeight: 500 }}>Anomaly Detector</span>
+                <span style={{ marginLeft: 'auto', background: 'rgba(255,77,106,0.15)', color: '#FF4D6A', fontSize: '0.6rem', fontWeight: 800, padding: '2px 7px', borderRadius: 10 }}>2</span>
               </Link>
             </motion.div>
           </div>
@@ -150,8 +166,8 @@ export default function Sidebar() {
 
         {/* Sign Out */}
         <div style={{ padding: '20px', borderTop: '1px solid rgba(108,99,255,0.08)' }}>
-          <motion.button 
-            className="btn-ghost" 
+          <motion.button
+            className="btn-ghost"
             style={{ width: '100%', justifyContent: 'flex-start', gap: 10, color: 'var(--text-muted)', fontSize: '0.85rem', padding: '12px 16px', borderRadius: 8 }}
             onClick={handleSignOut}
             whileHover={{ background: 'rgba(108,99,255,0.1)', color: 'var(--text-secondary)' }}

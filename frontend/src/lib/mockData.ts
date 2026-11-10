@@ -285,3 +285,217 @@ export const LENDERS = [
   'CreditAccess Grameen',
   'Fusion Microfinance',
 ];
+
+export const MOCK_UPLIFT_DATA = {
+  current_score: 742,
+  projected_score: 798,
+  projected_in_days: 60,
+  score_band: 'Good',
+  projected_band: 'Excellent',
+  summary:
+    'Following your 3 personalised steps could raise your TrustScore from 742 to 798 in 60 days, moving you from \'Good\' to \'Excellent\' band and unlocking better loan terms.',
+  recommendations: [
+    {
+      id: 'rec_add_platform',
+      category: 'platform',
+      title: 'Join a second gig platform',
+      description:
+        'Workers active on 2+ platforms earn an average of +28 TrustScore points due to higher income diversification signals.',
+      action_steps: [
+        'Download Zomato or Rapido partner app',
+        'Complete onboarding with your existing Aadhaar + DL credentials',
+        'Complete at least 20 deliveries to trigger income signal',
+      ],
+      impact_pts: 28,
+      difficulty: 'Easy',
+      timeframe_days: 30,
+      icon: 'PlusCircle',
+      color: '#F5C518',
+    },
+    {
+      id: 'rec_link_pan',
+      category: 'identity',
+      title: 'Link PAN to your e-Shram profile',
+      description:
+        'Linking PAN confirms formal income history to lenders and adds an identity signal worth +15 TrustScore points instantly.',
+      action_steps: [
+        'Visit eshram.gov.in and log in with your UAN',
+        'Go to Profile → Link PAN',
+        'Verify via OTP sent to Aadhaar-registered mobile',
+      ],
+      impact_pts: 15,
+      difficulty: 'Easy',
+      timeframe_days: 7,
+      icon: 'Link',
+      color: '#A78BFA',
+    },
+    {
+      id: 'rec_completion',
+      category: 'behaviour',
+      title: 'Raise completion rate by 2%',
+      description:
+        'Job completion rate is your highest-weight signal (25%). Reaching 96% unlocks the top-tier bracket and adds +13 points.',
+      action_steps: [
+        'Avoid accepting orders outside your confirmed delivery zone',
+        'Enable "Do Not Disturb" during peak hours to reduce cancellations',
+        'Complete 60 consecutive days above 95% to trigger the bracket upgrade',
+      ],
+      impact_pts: 13,
+      difficulty: 'Medium',
+      timeframe_days: 60,
+      icon: 'TrendingUp',
+      color: '#00FF9C',
+    },
+  ],
+  schemes: [
+    {
+      name: 'PM SVANidhi',
+      authority: 'Ministry of Housing & Urban Affairs',
+      benefit: '₹10,000 – ₹50,000 working capital loan at 7% p.a.',
+      eligible: true,
+      reason: 'Eligible via e-Shram registration',
+      apply_url: 'https://pmsvanidhi.mohua.gov.in',
+    },
+    {
+      name: 'e-Shram Accidental Insurance',
+      authority: 'Ministry of Labour & Employment',
+      benefit: '₹2 lakh accidental death / ₹1 lakh partial disability cover',
+      eligible: true,
+      reason: 'Auto-enrolled with e-Shram card',
+      apply_url: 'https://eshram.gov.in',
+    },
+    {
+      name: 'PMEGP',
+      authority: 'Ministry of MSME',
+      benefit: 'Up to ₹25 lakh subsidy for micro-enterprise setup',
+      eligible: false,
+      reason: 'Requires verified bank account and TrustScore ≥ 650',
+      apply_url: 'https://www.kviconline.gov.in/pmegpeportal',
+    },
+    {
+      name: 'PM Jeevan Jyoti Bima Yojana',
+      authority: 'Ministry of Finance',
+      benefit: '₹2 lakh life insurance at ₹436/year',
+      eligible: false,
+      reason: 'Open a savings account to access',
+      apply_url: 'https://jansuraksha.gov.in',
+    },
+  ],
+  platform_recommendations: [
+    {
+      name: 'Zomato',
+      icon: 'ShoppingBag',
+      color: '#E23744',
+      score_boost: 28,
+      reason: 'High order volume in metro areas; strong income consistency signal',
+    },
+    {
+      name: 'Rapido',
+      icon: 'Bike',
+      color: '#F5C518',
+      score_boost: 22,
+      reason: 'Bike taxi model builds platform tenure fast; supplements delivery income',
+    },
+    {
+      name: 'Porter',
+      icon: 'Truck',
+      color: '#FF6B35',
+      score_boost: 15,
+      reason: 'Logistics gigs provide high per-trip income; boosts income consistency',
+    },
+  ],
+};
+
+// ---------------------------------------------------------------------------
+// Feature 1 — Chat & Loan Recommendation mock data
+// ---------------------------------------------------------------------------
+
+export const MOCK_CHAT_HISTORY = [
+  {
+    id: 'msg-001',
+    role: 'assistant' as const,
+    text: 'Hi Rajesh! I\'m your NAMASTE AI assistant. I can explain your TrustScore, help you find ways to improve it, check your loan eligibility, or match you with government schemes. What would you like to know?',
+    timestamp: '10:00 AM',
+  },
+];
+
+export const MOCK_LOAN_RECOMMENDATION = {
+  worker_id: 'W-2024-MH-00781',
+  score: 742,
+  score_band: 'Good',
+  max_loan_amount: 50000,
+  suggested_amount: 35000,
+  interest_rate_pct: 12.0,
+  tenure_months: 18,
+  monthly_emi: 2139,
+  risk_label: 'Low Risk',
+  risk_color: '#00FF9C',
+  recommended_lenders: ['Ujjivan SFB', 'IIFL Finance', 'CreditAccess Grameen'],
+  ai_summary:
+    'Rajesh Kumar presents a low risk profile with a TrustScore of 742 (Good band). Recommended disbursement of ₹35,000 at 12% p.a. over 18 months (EMI ₹2,139/mo). Key strength: 94%+ job completion — top-tier reliability.',
+  key_strengths: [
+    '94%+ job completion — top-tier reliability',
+    '18 months of consistent platform income',
+    'Government-registered via e-Shram',
+    '7 verified peer vouches',
+  ],
+  watch_flags: [
+    'Single platform dependency — income concentration risk',
+    'No verified savings account on file',
+  ],
+};
+
+// ---------------------------------------------------------------------------
+// Feature 2 — Anomaly Detector mock data
+// ---------------------------------------------------------------------------
+
+export const MOCK_ANOMALY_FLAGS = [
+  {
+    id: 'anm_vouch_W-2024-WB-04912',
+    worker_id: 'W-2024-WB-04912',
+    worker_name: 'Ravi Das',
+    category: 'vouching',
+    severity: 'high',
+    severity_color: '#FF4D6A',
+    title: 'Coordinated Vouching Spike',
+    description:
+      'Received 6 vouches in <7 days from workers with near-identical score profiles. Possible vouching ring activity.',
+    detected_at: '2024-05-10T08:14:22',
+    resolved: false,
+  },
+  {
+    id: 'anm_score_W-2024-TN-00234',
+    worker_id: 'W-2024-TN-00234',
+    worker_name: 'Suresh Kumar',
+    category: 'score',
+    severity: 'medium',
+    severity_color: '#F5C518',
+    title: 'Abnormal Score Jump',
+    description:
+      'TrustScore increased by 92 points in a single cycle. Typical max organic growth is 25–40 pts/cycle.',
+    detected_at: '2024-05-09T14:33:10',
+    resolved: false,
+  },
+  {
+    id: 'anm_session_W-2024-DL-00892',
+    worker_id: 'W-2024-DL-00892',
+    worker_name: 'Amit Singh',
+    category: 'session',
+    severity: 'low',
+    severity_color: '#A78BFA',
+    title: 'New Device + Location Login',
+    description:
+      'Accessed account from an unrecognised device and location within the last 24 hours.',
+    detected_at: '2024-05-10T02:17:45',
+    resolved: true,
+  },
+];
+
+export const MOCK_ANOMALY_STATS = {
+  total_flagged: 3,
+  critical: 0,
+  high: 1,
+  medium: 1,
+  low: 1,
+  resolved_today: 1,
+};
