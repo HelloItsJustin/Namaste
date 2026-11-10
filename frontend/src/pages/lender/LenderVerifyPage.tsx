@@ -4,11 +4,12 @@
  */
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Loader2, CheckCircle, XCircle, ShieldCheck } from 'lucide-react';
+import { Search, Loader2, CheckCircle, XCircle, ShieldCheck, TrendingUp } from 'lucide-react';
 import AppShell from '@/components/layout/AppShell';
 import TrustScoreDial from '@/components/ui/TrustScoreDial';
 import ZKProofShield from '@/components/ui/ZKProofShield';
-import { MOCK_WORKER, MOCK_TRUST_SCORE_DETAILS } from '@/lib/mockData';
+import LoanRecommendationCard from '@/components/ui/LoanRecommendationCard';
+import { MOCK_WORKER, MOCK_TRUST_SCORE_DETAILS, MOCK_UPLIFT_DATA } from '@/lib/mockData';
 
 type VerifyState = 'idle' | 'loading' | 'found' | 'notfound';
 
@@ -121,6 +122,29 @@ export default function LenderVerifyPage() {
                 <div className="glass-card p-6 flex flex-col items-center gap-3">
                   <p style={{ color: 'var(--text-muted)', fontSize: '0.68rem', letterSpacing: '0.08em' }}>TRUST SCORE</p>
                   <TrustScoreDial score={MOCK_WORKER.trustScore} size={180} />
+                  {/* Projected score badge */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      padding: '8px 16px',
+                      background: 'rgba(0,255,156,0.08)',
+                      border: '1px solid rgba(0,255,156,0.25)',
+                      borderRadius: 10,
+                      width: '100%',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <TrendingUp size={14} color="#00FF9C" />
+                    <span style={{ color: 'var(--text-muted)', fontSize: '0.72rem' }}>Projected in {MOCK_UPLIFT_DATA.projected_in_days}d:</span>
+                    <span style={{ fontFamily: 'JetBrains Mono', fontWeight: 800, color: '#00FF9C', fontSize: '0.9rem' }}>
+                      {MOCK_UPLIFT_DATA.projected_score}
+                    </span>
+                  </motion.div>
                 </div>
                 <div className="glass-card p-6 flex flex-col gap-3">
                   <p style={{ fontWeight: 600, fontSize: '0.9rem' }}>Proven Claims (ZK-Verified)</p>
@@ -141,6 +165,9 @@ export default function LenderVerifyPage() {
                   </div>
                 </div>
               </div>
+
+              {/* AI Loan Recommendation Card */}
+              <LoanRecommendationCard />
             </motion.div>
           )}
 

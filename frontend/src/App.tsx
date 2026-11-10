@@ -11,6 +11,8 @@ import ZKProofPage from './pages/ZKProofPage';
 import WalletPage from './pages/WalletPage';
 import VouchingPage from './pages/VouchingPage';
 import SettingsPage from './pages/SettingsPage';
+import UpliftPage from './pages/UpliftPage';
+import ChatPage from './pages/ChatPage';
 
 // Lender Pages
 import LenderDashboard from './pages/lender/LenderDashboard';
@@ -21,6 +23,7 @@ import LenderReportsPage from './pages/lender/LenderReportsPage';
 import AdminWorkersPage from './pages/admin/AdminWorkersPage';
 import AdminContractsPage from './pages/admin/AdminContractsPage';
 import AdminTrustScorePage from './pages/admin/AdminTrustScorePage';
+import AdminAnomalyPage from './pages/admin/AdminAnomalyPage';
 
 function App() {
   const { isOnboarded } = useWorkerStore();
@@ -64,6 +67,14 @@ function App() {
           path="/settings" 
           element={isOnboarded ? <SettingsPage /> : <Navigate to="/onboarding" />} 
         />
+        <Route 
+          path="/uplift" 
+          element={isOnboarded ? <UpliftPage /> : <Navigate to="/onboarding" />} 
+        />
+        <Route 
+          path="/chat" 
+          element={isOnboarded ? <ChatPage /> : <Navigate to="/onboarding" />} 
+        />
 
         {/* Lender Routes */}
         <Route path="/lender/dashboard" element={<LenderDashboard />} />
@@ -74,6 +85,7 @@ function App() {
         <Route path="/admin/workers" element={<AdminWorkersPage />} />
         <Route path="/admin/contracts" element={<AdminContractsPage />} />
         <Route path="/admin/trustscore" element={<AdminTrustScorePage />} />
+        <Route path="/admin/anomaly" element={<AdminAnomalyPage />} />
 
         {/* Default Redirect */}
         <Route path="/" element={<Navigate to={isOnboarded ? "/dashboard" : "/onboarding"} />} />
